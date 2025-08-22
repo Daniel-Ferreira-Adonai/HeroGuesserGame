@@ -3,10 +3,9 @@ export default class Helper {
     return new Intl.DateTimeFormat('en-CA', {
       timeZone: 'America/Fortaleza',
       year: 'numeric', month: '2-digit', day: '2-digit'
-    }).format(d); // e.g. "2025-08-21"
+    }).format(d); 
   }
 
-  // Fast deterministic string hash (cyrb53)
   cyrb53(str, seed = 0) {
     let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
     for (let i = 0, ch; i < str.length; i++) {
@@ -18,11 +17,10 @@ export default class Helper {
          Math.imul(h2 ^ (h2 >>> 13), 3266489909);
     h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ 
          Math.imul(h1 ^ (h1 >>> 13), 3266489909);
-    // 53-bit result
+
     return 4294967296 * (2097151 & h2) + (h1 >>> 0);
   }
 
-  // Pick index deterministically for a given day
   dailyIndex(length, dateStr = this.fortalezaDateId()) {
     if (!length) return 0;
     const hash = this.cyrb53(dateStr);

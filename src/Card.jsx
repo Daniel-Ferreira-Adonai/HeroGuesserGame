@@ -29,14 +29,14 @@ function Card({hero, heroOfTheDay}) {
       </div>
 
       <div className="background-answers pop-in" style={{background: decideColor(hero.date, heroOfTheDay.date)}}>
-                <span style={{zIndex: 1, position: "absolute", color: "rgba(0,0,0,0.3)", fontSize: "80px"}} class="material-symbols-outlined">{decideArrow(hero.date,heroOfTheDay.date)}</span>
+                <span style={{zIndex: 1, position: "absolute", color: "rgba(0,0,0,0.1)", fontSize: "100px"}} class="material-symbols-outlined">{decideArrow(hero.date,heroOfTheDay.date)}</span>
 
-        <h3>{hero.date ?? "not found"}</h3>
+        <h3 style={{zIndex: 2}}>{hero.date ?? "not found"}</h3>
       </div>
 
       <div className="background-answers pop-in" style={{background: decideColor(hero.height, heroOfTheDay.height)}}>
-                <span style={{zIndex: 1, position: "absolute", color: "rgba(0,0,0,0.3)", fontSize: "80px"}} class="material-symbols-outlined">{decideArrow(hero.height,heroOfTheDay.height)}</span>
-        <h3>{hero.height ?? "not found"}</h3>
+                <span style={{zIndex: 1, position: "absolute", color: "rgba(0,0,0,0.1)", fontSize: "100px"}} class="material-symbols-outlined">{decideArrow(hero.height,heroOfTheDay.height)}</span>
+        <h3 tyle={{zIndex: 2}}>{hero.height ?? "not found"}</h3>
       </div>
     </div>
   );
