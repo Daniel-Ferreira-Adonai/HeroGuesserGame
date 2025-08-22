@@ -11,8 +11,8 @@ import Helper from "./helper.js"
 const STORAGE_KEY = "heroGameData";
 
 function App() {
-  const [allHeroes, setAllHeroes] = useState([]);   // 👈 lista estável
-  const [heroes, setHeroes] = useState([]);         // 👈 pool mutável (dropdown)
+  const [allHeroes, setAllHeroes] = useState([]);   
+  const [heroes, setHeroes] = useState([]);        
   const [selectedHeroes, setSelectedHeroes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [gameOver, setGameOver] = useState(false);
@@ -20,7 +20,6 @@ function App() {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
 
-  // Filtro do dropdown
   const getFilteredItems = (q, list) => {
     if (!q) return list;
     const s = q.toLowerCase();
@@ -28,17 +27,15 @@ function App() {
   };
   const filteredItems = getFilteredItems(query, heroes);
 
-  // 1) Fetch + preparar lista estável (ordenada p/ índice diário ser determinístico)
   useEffect(() => {
     (async () => {
       const fetched = await Hero.getAllHeroes();
       const sorted = [...fetched].sort((a, b) => a.name.localeCompare(b.name));
-      setAllHeroes(sorted);   // nunca mutar essa
+      setAllHeroes(sorted);   
       setLoading(false);
     })();
   }, []);
 
-  // 2) Hero of the day: compute APENAS de allHeroes (estável)
   const heroOfTheDay = useMemo(() => {
     if (allHeroes.length === 0) return null;
     const helper = new Helper();
@@ -47,7 +44,6 @@ function App() {
     return allHeroes[idx];
   }, [allHeroes]);
 
-  // 3) Restaurar do storage + aplicar reset diário + montar pool heroes
   useEffect(() => {
     if (allHeroes.length === 0) return;
 
@@ -61,23 +57,19 @@ function App() {
         const used = parsed.selectedHeroes || [];
         setSelectedHeroes(used);
 
-        // remove usados do pool (com base na lista estável)
         const filteredPool = allHeroes.filter(h => !used.some(u => u.name === h.name));
         setHeroes(filteredPool);
       } else {
-        // novo dia → limpar
         setSelectedHeroes([]);
         setHeroes(allHeroes);
         localStorage.setItem(STORAGE_KEY, JSON.stringify({ date: todayId, selectedHeroes: [] }));
       }
     } else {
-      // primeira vez
       setHeroes(allHeroes);
       localStorage.setItem(STORAGE_KEY, JSON.stringify({ date: todayId, selectedHeroes: [] }));
     }
   }, [allHeroes]);
 
-  // 4) Salvar no storage sempre que selectedHeroes mudar
   useEffect(() => {
     if (allHeroes.length === 0) return;
     const helper = new Helper();
@@ -89,7 +81,6 @@ function App() {
     }));
   }, [selectedHeroes, allHeroes]);
 
-  // 5) Game over quando acertar
   useEffect(() => {
     if (!heroOfTheDay) return;
     const won = selectedHeroes.some(h => h.name === heroOfTheDay.name);
@@ -98,13 +89,9 @@ function App() {
 
   if (loading || !heroOfTheDay) return <></>;
 
-  // Seleção de um herói no dropdown
   const pickHero = (hero) => {
-    // remover do pool
     setHeroes(prev => prev.filter(h => h.name !== hero.name));
-    // adicionar ao histórico
     setSelectedHeroes(prev => [...prev, hero]);
-    // fechar dropdown
     setOpen(false);
     setQuery("");
   };
@@ -117,7 +104,6 @@ function App() {
         <h1>Hero Guesser</h1>
         <h3>Guess the hero of the day</h3>
 
-        {/* Esconde a busca quando já ganhou */}
         {!gameOver && (
           <div className='search_bar'>
             <input
@@ -126,7 +112,7 @@ function App() {
               type="text"
               onChange={e => { setQuery(e.target.value); setOpen(true); }}
               onFocus={() => { if (filteredItems.length) setOpen(true); }}
-              onBlur={() => setTimeout(() => setOpen(false), 150)} // deixa clicar
+              onBlur={() => setTimeout(() => setOpen(false), 150)} 
             />
             <span className="search-icon material-symbols-outlined">Search</span>
 
@@ -148,7 +134,7 @@ function App() {
 
         {gameOver && (
           <h2 style={{ color: "gold", textAlign: "center" }}>
-            🎉 You found {heroOfTheDay.name}! Come back tomorrow.
+           You found {heroOfTheDay.name}! Come back tomorrow.
           </h2>
         )}
 
