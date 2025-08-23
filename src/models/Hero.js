@@ -12,6 +12,7 @@ export default class Hero {
     this.date = date;
     this.height = height;
     this.image = image;
+    this.popIn = "pop-in"
   }
 
   static getRef() {

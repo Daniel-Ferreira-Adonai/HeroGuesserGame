@@ -55,6 +55,7 @@ function App() {
       const parsed = JSON.parse(saved);
       if (parsed.date === todayId) {
         const used = parsed.selectedHeroes || [];
+        used.map(x => x.popIn = "")
         setSelectedHeroes(used);
 
         const filteredPool = allHeroes.filter(h => !used.some(u => u.name === h.name));
