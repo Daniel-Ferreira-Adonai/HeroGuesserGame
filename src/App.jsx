@@ -110,12 +110,13 @@ function App() {
             <input
               className="textInput"
               value={query}
+              placeholder='Type a hero name'
               type="text"
               onChange={e => { setQuery(e.target.value); setOpen(true); }}
               onFocus={() => { if (filteredItems.length) setOpen(true); }}
               onBlur={() => setTimeout(() => setOpen(false), 150)} 
             />
-            <span className="search-icon material-symbols-outlined">Search</span>
+            <span  style={{color:"rgba(255, 255, 255, 0.87)" }}className="search-icon material-symbols-outlined">Search</span>
 
             {open && filteredItems.length > 0 && (
               <div className="dropdown-select-menu">
@@ -143,8 +144,8 @@ function App() {
           cards={[...selectedHeroes].reverse()}
           heroOfTheDay={heroOfTheDay}
         />
+        <h3 >Enjoy the game!</h3>
 
-        <h3>Yesterday was #1</h3>
       </div>
     </>
   );
