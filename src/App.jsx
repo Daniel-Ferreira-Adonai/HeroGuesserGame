@@ -7,7 +7,7 @@ import { useState, useEffect, useMemo } from 'react'
 import Card from "./Card.jsx"
 import CardsContainer from "./CardsContainer.jsx"
 import Helper from "./helper.js"
-
+import TutorialBox from "./tutorial.jsx"
 const STORAGE_KEY = "heroGameData";
 
 function App() {
@@ -103,7 +103,8 @@ function App() {
 
       <div className='wrapper'>
         <h1>Hero Guesser</h1>
-        <h3>Guess the hero of the day</h3>
+                <h3>Guess the hero of the day</h3>
+      
 
         {!gameOver && (
           <div className='search_bar'>
@@ -139,12 +140,18 @@ function App() {
            You found {heroOfTheDay.name}! Come back tomorrow.
           </h2>
         )}
-
-        <CardsContainer
+  { selectedHeroes.length >= 1   && (
+          <CardsContainer
           cards={[...selectedHeroes].reverse()}
           heroOfTheDay={heroOfTheDay}
         />
-        <h3 >Enjoy the game!</h3>
+        )}
+        
+          { selectedHeroes.length == 0  && (
+          <TutorialBox></TutorialBox>
+        )}
+      
+        <p style={{fontWeight: 50}}>Enjoy the game!</p>
 
       </div>
     </>

@@ -22,6 +22,48 @@
   box-sizing: border-box;
   
 }
+.tutorialBox{
+  width: 50px;          
+  aspect-ratio: 1 / 1;    
+  border: 1px solid hsl(0, 0%, 80%);
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px rgba(0,0,0,.1);
+  background: #25a855;       
+  color: #fff;
+  display: grid;          
+  place-items: center;
+  padding: 5px;           
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.2;
+  overflow: hidden;       
+  font-weight: 1000;
+}
+.outside_wrapper{
+ border: 1px solid hsl(0, 0%, 20%);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.50);
+    padding: 10px;
+  min-width: 300px;
+  max-width: max-content;  
+  margin: 0 auto;
+  border-radius: 12px;
+
+
+}
+.minorWrapper {
+  max-width: max-content;
+  border-radius: 12px;
+  padding: 10px;
+  min-width: 300px;
+  position: relative;     
+   display: grid;
+  grid-template-columns: repeat(5, 70px); 
+  gap: 5px;
+  max-width: max-content;  
+  margin: 0 auto;
+  box-sizing: border-box;
+}
 .wrapper{
   background-color: rgba(0,0,0,0.75);
   max-width: max-content;
